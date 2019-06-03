@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">健康生活小助手</string>
+    <string name="notify_str0">该起床了！</string>
+    <string name="notify_str1">晚间打卡截止时间还有1小时，快去打卡吧</string>
+    <string name="notify_str2">晚间打卡已截止</string>
+    <string name="front_tip">前台服务运行中</string>
 </resources>

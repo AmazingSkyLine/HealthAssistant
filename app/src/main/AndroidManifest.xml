@@ -2,13 +2,51 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.jktr.healthassistant">
 
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <service
+            android:name=".clock.NotificationHandlerService"
+            android:enabled="true"
+            android:exported="false"></service>
+
+        <receiver
+            android:name=".clock.AfterNotificationReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="afterNotification" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".clock.BootReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".clock.MusicService"
+            android:enabled="true"
+            android:exported="false" />
+        <service
+            android:name=".MyFrontGroundService"
+            android:enabled="true"
+            android:exported="false"
+            android:process=":daemon_service" />
+
+        <activity android:name=".SettingActivity" />
+        <activity android:name=".clock.AlarmActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -16,6 +54,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver
+            android:name=".clock.AlarmReceiver"
+            android:process=":newinst">  <!--创建新进程..好像没用?-->
+            <intent-filter>
+                <action android:name="com.jktr.healthassistant.clock" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
